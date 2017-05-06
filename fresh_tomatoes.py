@@ -16,8 +16,9 @@ main_page_head = '''
     <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
-    <style type="text/css" media="screen">
+    <style type="text/css" media="screen" class=>
         body {
+            background-color: #e6e6e7;
             padding-top: 80px;
         }
         #trailer .modal-dialog {
@@ -37,9 +38,13 @@ main_page_head = '''
         }
         .movie-tile {
             margin-bottom: 20px;
+            max-width: 100%;
+            max-height: 100%;
             padding-top: 20px;
+            transition: all .2s ease-in-out;
         }
         .movie-tile:hover {
+            transform: scale(1.1);
             background-color: #EEE;
             cursor: pointer;
         }
@@ -107,12 +112,12 @@ main_page_content = '''
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <a class="navbar-brand" href="#">Fresh Tomatoes Movie Trailers</a>
+            <a class="navbar-brand" href="#">My Favorite Movie Trailers</a>
           </div>
         </div>
       </div>
     </div>
-    <div class="container">
+    <div class="container" style="padding-left:5px;width:90%;height: 100%">
       {movie_tiles}
     </div>
   </body>
@@ -125,6 +130,7 @@ movie_tile_content = '''
 <div class="col-md-6 col-lg-4 movie-tile text-center" data-trailer-youtube-id="{trailer_youtube_id}" data-toggle="modal" data-target="#trailer">
     <img src="{poster_image_url}" width="220" height="342">
     <h2>{movie_title}</h2>
+    <h6>{movie_storyline}</h6>
 </div>
 '''
 
@@ -144,6 +150,7 @@ def create_movie_tiles_content(movies):
         # Append the tile for the movie with its content filled in
         content += movie_tile_content.format(
             movie_title=movie.title,
+            movie_storyline=movie.storyline,
             poster_image_url=movie.poster_image_url,
             trailer_youtube_id=trailer_youtube_id
         )
